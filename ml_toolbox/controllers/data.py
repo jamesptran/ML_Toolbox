@@ -10,6 +10,8 @@ def download():
 
 	req_data = request.get_json()
 	train_tok = req_data['train_folder']
+    gauth = GoogleAuth()      
+    drive = GoogleDrive(gauth) 
 	test_tok = req_data['test_folder']
 	train_list = drive.ListFile({'q': f"{train_tok} in parents and trashed=false"}).GetList()
 	test_list = drive.ListFile({'q': f"{test_tok} in parents and trashed=false"}).GetList()
