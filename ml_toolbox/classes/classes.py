@@ -8,8 +8,6 @@ from unite.utils.datetools import *
 import warnings
 from unite.awareconfig import default_sensors, default_plugins, host_name
 
-
-
 class User(db.Document, UserMixin):
     name = db.StringField()
     email = db.StringField(max_length=255, unique=True)
