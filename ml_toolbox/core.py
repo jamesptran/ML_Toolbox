@@ -6,7 +6,5 @@ from flask_mongoengine import MongoEngine
 db = MongoEngine()
 
 # security = Security()
-
 # oauth = OAuth()
-
 # mail = Mail()
