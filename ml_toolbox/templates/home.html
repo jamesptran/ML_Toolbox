@@ -9,14 +9,14 @@
             };
             console.log(payload);
 
-            var data = new FormData();
-            data.append( "json", JSON.stringify( payload ) );
-            console.log(data);
-
             fetch("/data/download",
             {
                 method: "POST",
-                body: data
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
             })
             .then(function(res){ return res.json(); })
             .then(function(data){ alert( JSON.stringify( data ) ) });
