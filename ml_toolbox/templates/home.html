@@ -24,6 +24,51 @@
             return false;
           });
         });
+
+        $(function() {
+          $('a#knn').on('click', function(e) {
+            e.preventDefault()
+            document.getElementsByName('mname')[0].value = "K Nearest Neighbor";
+          });
+        });
+        $(function() {
+          $('a#rf').on('click', function(e) {
+            e.preventDefault()
+            document.getElementsByName('mname')[0].value = "Random Forest";
+          });
+        });
+        $(function() {
+          $('a#svm').on('click', function(e) {
+            e.preventDefault()
+            document.getElementsByName('mname')[0].value = "Support Vector Machine";
+          });
+        });
+
+        $(function() {
+          $('a#train').on('click', function(e) {
+            e.preventDefault()
+            var modelName = document.getElementsByName('mname')[0].value
+            var payload = {
+                model_name: modelName
+            };
+            console.log(payload);
+
+            fetch("/ml_model/trigger",
+            {
+                method: "POST",
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(function(res){ return res.json(); })
+            .then(function(data){ alert( JSON.stringify( data ) ) });
+
+            return false;
+          });
+        });
+
 </script>
 
 
@@ -35,8 +80,13 @@
 
 
 <form>
-  <label for="fname">Folder name:</label>
+  <label for="fname">URL:</label>
   <input type="text" id="fname" name="fname"><br><br>
+</form>
+
+<form>
+  <label for="fname">Model name:</label>
+  <input type="text" id="mname" name="mname" readonly><br><br>
 </form>
 
 
@@ -46,9 +96,9 @@
   <div class="dropdown">
     <button class="dropbtn">Dropdown</button>
     <div class="dropdown-content">
-      <a href="#">K Nearest Neighbor</a>
-      <a href="#">Random Forest</a>
-      <a href="#">Support Vector Machine</a>
+      <a id=knn>K Nearest Neighbor</a>
+      <a id=rf>Random Forest</a>
+      <a id=svm>Support Vector Machine</a>
     </div>
   </div>
   <a href="#">Train</a>
