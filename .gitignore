@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Ignore all json files
+*.json
+
+# Ignore all csv files
+*.csv

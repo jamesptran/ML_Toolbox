@@ -9,7 +9,9 @@ data_controller = Blueprint('data', __name__)
 def download():
 
 	req_data = request.get_json()
-	data_tok = req_data['data_folder']
+	print(req_data)
+	full_path = req_data['data_folder']
+	data_tok = f"'{full_path.split('/')[-1]}'"
 	gauth = GoogleAuth()
 	drive = GoogleDrive(gauth)
 	data_list = drive.ListFile({'q': f"{data_tok} in parents and trashed=false"}).GetList()
