@@ -3,7 +3,7 @@ from flask import Blueprint, request, g, jsonify, abort, current_app
 
 mltask_controller = Blueprint('ml_task', __name__)
 
-@data_controller.route('/train', methods=['POST'])
+@mltask_controller.route('/train', methods=['POST'])
 
 def train():
 	req_data = request.get_json()

@@ -53,7 +53,7 @@
             };
             console.log(payload);
 
-            fetch("/ml_model/trigger",
+            fetch("/mltask/train",
             {
                 method: "POST",
                 headers: {
@@ -101,7 +101,7 @@
       <a id=svm>Support Vector Machine</a>
     </div>
   </div>
-  <a href="#">Train</a>
+  <a id=train>Train</a>
   <a href="#">Test</a>
   <a href="#">Visualize</a>
 </div>

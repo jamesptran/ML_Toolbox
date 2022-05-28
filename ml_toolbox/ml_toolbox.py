@@ -20,6 +20,8 @@ def create_app():
 
     from .controllers import data_controller
     app.register_blueprint(data_controller, url_prefix='/data')
+    from .controllers import mltask_controller
+    app.register_blueprint(mltask_controller, url_prefix='/mltask')
 
     return app
 
