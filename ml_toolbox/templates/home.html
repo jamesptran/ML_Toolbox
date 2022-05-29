@@ -18,8 +18,6 @@
                 },
                 body: JSON.stringify(payload)
             })
-            .then(function(res){ return res.json(); })
-            .then(function(data){ alert( JSON.stringify( data ) ) });
 
             return false;
           });
@@ -62,12 +60,74 @@
                 },
                 body: JSON.stringify(payload)
             })
-            .then(function(res){ return res.json(); })
+            // .then(function(res){ return res.json(); })
+            // .then(function(data){ alert( JSON.stringify( data ) ) });
+
+            return false;
+          });
+        });
+
+        $(function() {
+          $('a#test').on('click', function(e) {
+            e.preventDefault()
+            var modelName = document.getElementsByName('mname')[0].value
+            var payload = {
+                model_name: modelName
+            };
+
+            document.getElementsByName('test_result')[0].value = "ASL:DJASL:DJ ASJD:LASJ LAS\nDSJA:LSKJDALSDJAS\nASJD:LKASJDAL:SJDAS\nASJD:ALSDJ:LASD"
+
+            fetch("/mltask/test",
+            {
+                method: "POST",
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(function(res){
+              return res.json();
+            })
             .then(function(data){ alert( JSON.stringify( data ) ) });
 
             return false;
           });
         });
+
+        $(function() {
+          $('a#visualization').on('click', function(e) {
+            e.preventDefault()
+            var modelName = document.getElementsByName('mname')[0].value
+            var payload = {
+                model_name: modelName
+            };
+
+            fetch("/mltask/test",
+            {
+                method: "POST",
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(function(res){
+              return res.json();
+            })
+            .then(function(data){ alert( JSON.stringify( data ) ) });
+
+
+            var image = document.getElementsById("visualization_img");
+            image.src = "visualization.jpg"
+
+            return false;
+          });
+        });
+
+
+
+
 
 </script>
 
@@ -102,8 +162,17 @@
     </div>
   </div>
   <a id=train>Train</a>
-  <a href="#">Test</a>
-  <a href="#">Visualize</a>
+  <a id=test>Test</a>
+  <a id=visualize>Visualize</a>
 </div>
+
+<form>
+  <p><label >Validation result:</label></p>
+  <textarea id="test_result" name="test_result" rows="5" cols="50"></textarea>
+  <br>
+</form>
+
+
+<img id="visualization_img" src="" alt="image">
 
 
