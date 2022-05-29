@@ -14,6 +14,7 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 from sklearn.inspection import DecisionBoundaryDisplay
+from sklearn.metrics import classification_report
 import pickle
 import pandas as pd
 
@@ -39,6 +40,28 @@ def train():
 		pickle.dump(clf,f)
 
 	resp = jsonify(success=True)
+	resp.status_code = 200
+	
+	return resp
+
+@mltask_controller.route('/test', methods=['POST'])
+
+def test():
+	req_data = request.get_json()
+	model = req_data['model_name']
+	with open(f"{model}.pkl", "rb") as f:
+		clf = pickle.load(f)
+
+	df_test = pd.read_csv('test.csv')
+	df_train = pd.read_csv('train.csv')
+	classes = list(df_train['label'].unique())
+	X_test = df_test[[col for col in df_test.columns if col.startswith('feature')]].to_numpy()
+	y_true = df_test['label'].to_numpy()
+	X_test = StandardScaler().fit_transform(X_test)
+	y_pred = clf.predict(X_test)
+	clf_report = classification_report(y_true, y_pred, target_names = ['Class ' + str(i) for i in range(1, len(classes) + 1)])
+
+	resp = jsonify(success=True, text = clf_report)
 	resp.status_code = 200
 	
 	return resp

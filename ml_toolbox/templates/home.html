@@ -74,9 +74,6 @@
             var payload = {
                 model_name: modelName
             };
-
-            document.getElementsByName('test_result')[0].value = "ASL:DJASL:DJ ASJD:LASJ LAS\nDSJA:LSKJDALSDJAS\nASJD:LKASJDAL:SJDAS\nASJD:ALSDJ:LASD"
-
             fetch("/mltask/test",
             {
                 method: "POST",
@@ -89,7 +86,15 @@
             .then(function(res){
               return res.json();
             })
-            .then(function(data){ alert( JSON.stringify( data ) ) });
+            .then(function(data){ 
+
+              // alert( JSON.stringify( data ) ) 
+              document.getElementsByName('test_result')[0].value = data.text
+
+
+
+
+            });
 
             return false;
           });
@@ -168,7 +173,7 @@
 
 <form>
   <p><label >Validation result:</label></p>
-  <textarea id="test_result" name="test_result" rows="5" cols="50"></textarea>
+  <textarea id="test_result" name="test_result" rows="10" cols="80"></textarea>
   <br>
 </form>
 
