@@ -86,14 +86,8 @@
             .then(function(res){
               return res.json();
             })
-            .then(function(data){ 
-
-              // alert( JSON.stringify( data ) ) 
+            .then(function(data){
               document.getElementsByName('test_result')[0].value = data.text
-
-
-
-
             });
 
             return false;
@@ -102,13 +96,14 @@
 
         $(function() {
           $('a#visualization').on('click', function(e) {
+            clear_visualization()
             e.preventDefault()
             var modelName = document.getElementsByName('mname')[0].value
             var payload = {
                 model_name: modelName
             };
 
-            fetch("/mltask/test",
+            fetch("/mltask/visualize",
             {
                 method: "POST",
                 headers: {
@@ -120,20 +115,29 @@
             .then(function(res){
               return res.json();
             })
-            .then(function(data){ alert( JSON.stringify( data ) ) });
+            .then(function(data){
+              image_visualization("visualization.jpeg")
+              console.log("Visualization created")
+            });
 
-
-            var image = document.getElementsById("visualization_img");
-            image.src = "visualization.jpg"
 
             return false;
           });
         });
 
+        function image_visualization(thisImg) {
+            var img = document.createElement("IMG");
+            img.src = "/data/get_image/"+thisImg;
+            img.id = "visualization_img_component"
+            document.getElementById('visualization_img_div').appendChild(img);
+        }
 
-
-
-
+        function clear_visualization() {
+          if(document.getElementById("visualization_img_component")){
+            var image_x = document.getElementById('visualization_img_component');
+            image_x.parentNode.removeChild(image_x);
+          }
+        }
 </script>
 
 
@@ -167,8 +171,11 @@
     </div>
   </div>
   <a id=train>Train</a>
+  <a id=visualization>Visualize</a>
   <a id=test>Test</a>
-  <a id=visualize>Visualize</a>
+</div>
+
+<div id="visualization_img_div">
 </div>
 
 <form>
@@ -176,8 +183,5 @@
   <textarea id="test_result" name="test_result" rows="10" cols="80"></textarea>
   <br>
 </form>
-
-
-<img id="visualization_img" src="" alt="image">
 
 
