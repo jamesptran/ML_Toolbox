@@ -98,6 +98,11 @@
           $('a#visualization').on('click', function(e) {
             clear_visualization()
             e.preventDefault()
+            var modelName = document.getElementsByName('mname')[0].value
+            var payload = {
+                model_name: modelName
+            };
+
             fetch("/mltask/visualize",
             {
                 method: "POST",
