@@ -62,3 +62,8 @@ body {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+textarea {
+   font-family: monospace, monospace;
+   font-size: 12px;
+}
