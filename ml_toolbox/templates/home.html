@@ -102,36 +102,19 @@
             var payload = {
                 model_name: modelName
             };
-
-            fetch("/mltask/visualize",
-            {
-                method: "POST",
-                headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            })
-            .then(function(res){
-              return res.json();
-            })
-            .then(function(data){
-              image_visualization(data.image_name)
-              console.log("Visualization created")
-            });
-
+            image_visualization()
 
             return false;
           });
         });
 
-        function image_visualization(thisImg) {
+        function image_visualization() {
             var img = document.createElement("IMG");
-            img.src = "/data/get_image/"+thisImg;
+            img.src = "/mltask/visualize";
             img.id = "visualization_img_component"
             document.getElementById('visualization_img_div').appendChild(img);
         }
-
+ 
         function clear_visualization() {
           if(document.getElementById("visualization_img_component")){
             var image_x = document.getElementById('visualization_img_component');

@@ -27,6 +27,6 @@ def upload():
 	return resp
 
 
-@data_controller.route('/get_image/<name>')
-def get_image(name):
-	return send_file(name, mimetype='image/jpeg')
+# @data_controller.route('/get_image/<name>')
+# def get_image(name):
+# 	return send_file(name, mimetype='image/jpeg')
