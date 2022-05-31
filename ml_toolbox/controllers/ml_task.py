@@ -49,7 +49,7 @@ def train():
 
 	resp = jsonify(success=True)
 	resp.status_code = 200
-	
+
 	return resp
 
 @mltask_controller.route('/test', methods=['POST'])
@@ -71,7 +71,7 @@ def test():
 
 	resp = jsonify(success=True, text = clf_report)
 	resp.status_code = 200
-	
+
 	return resp
 
 
