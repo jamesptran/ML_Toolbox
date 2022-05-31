@@ -76,7 +76,7 @@ def test():
 
 
 
-@mltask_controller.route('/visualize', methods=['POST'])
+@mltask_controller.route('/visualize', methods=['GET'])
 
 def visualize():
 	# req_data = request.get_json()
@@ -149,7 +149,8 @@ def visualize():
 	model = req_data['model_name']
 	with open(f"{model}.pkl", "rb") as f:
 		clf = pickle.load(f)
-		
+
+	print("test")
 	fig = Figure()
 	axis = fig.add_subplot(1, 1, 1)
 	xs = np.random.rand(100)
